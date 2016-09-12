@@ -1,0 +1,23 @@
+$mainBlue: 2f5572;
+$gray: #dedede;
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	color: $mainBlue;
+	columns: 300px 2;
+}
+
+.box {
+	a {
+		display: block;
+		padding: 10px;
+	}
+
+	p {
+		font-size: 1rem;
+		color: $gray;
+	}
+}
