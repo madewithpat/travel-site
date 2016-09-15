@@ -3,14 +3,21 @@
 	position: absolute;
 	width: 100%;
 	z-index: 1000;
+	transition: background-color .3s ease-out;
 	
+	&--is-expanded {
+		background-color: rgba($mainBlue, .55);
+	}
 
 	@mixin atMedium {
 		background-color: rgba($mainBlue, .3);
 	}
 
 	&__btn-container {
-		float: right;
+
+		@mixin atMedium {
+			float: right;
+		}
 	}
 
 	&__logo {
@@ -34,11 +41,39 @@
 
 	&__menu-icon {
 		width: 20px;
-		height: 20px;
-		background-color: #fff;
+		height: 19px;
 		position: absolute;
 		top: 10px;
 		right: 10px;
+		z-index: 10;
+
+		&::before,
+		&__middle,
+		&::after {
+			position: absolute;
+			left: 0;
+			width: 20px;
+			height: 3px;
+			background-color: #fff;
+			transition: all .3s ease-out;
+		}
+
+
+		&::before {
+			content: "";
+			top: 0;
+			transform-origin: 0 0;
+		}
+
+		&__middle {
+			top: 8px;
+		}
+
+		&::after {
+			content: "";
+			bottom: 0;
+			transform-origin: 0 100%;
+		}
 
 		@mixin atMedium {
 			display: none;
@@ -46,11 +81,45 @@
 
 	}
 
+	&__menu-icon--close-x {
+		&::before {
+			transform: rotate(45deg) scaleX(1.2);
+		}
+
+		.site-header__menu-icon__middle {
+			opacity: 0;
+			transform: scaleX(0);
+		}
+
+		&::after {
+			transform: rotate(-45deg) scaleX(1.2);
+		}
+	}
+
+	/* Not sure I agree with his implementation of fade in for mobile menu.
+			He uses opacity only and gives a z-index to hide the content,
+			surely there's a way to use opacity and display simultaneously..
+			(I probably have this in my notes from CodeSchool)*/
 	&__menu-content {
-		display: none;
+		opacity: 0;
+		transform: scale(1.2);
+		transition: all .3s ease-out;
+		position: relative;
+		z-index: -10;
+		padding-top: 90px;
+		text-align: center;
 
 		@mixin atMedium {
-			display: block;
+			opacity: 1;
+			z-index: 1;
+			padding-top: 0;
+			transform: scale(1);
+		}
+
+		&--is-visible {
+			opacity: 1;
+			z-index: 1;
+			transform: scale(1);
 		}
 
 	}
